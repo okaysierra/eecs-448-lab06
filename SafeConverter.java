@@ -8,6 +8,7 @@ public class SafeConverter
 {
 	private JPanel panel;
 	private JButton button;
+  private JButton clear;
 	private JTextField text;
 	private JLabel label;
   private JRadioButton fahrenheit;
@@ -20,6 +21,7 @@ public class SafeConverter
 	{
 		panel = new JPanel();
 		button = new JButton("Convert");
+    clear = new JButton("Clear");
 		text = new JTextField(3);//3 cols, not 20 chars
     fahrenheit = new JRadioButton("Fahrenheit");
     celsius = new JRadioButton("Celcius");
@@ -28,6 +30,7 @@ public class SafeConverter
 
 		//Load the listener
 		button.addActionListener(buttonListener());
+    clear.addActionListener(clearListener());
     fahrenheit.addActionListener(Fahrenheit());
     celsius.addActionListener(Celsius());
     kelvin.addActionListener(Kelvin());
@@ -35,6 +38,7 @@ public class SafeConverter
 		//load the panel
 		panel.add(text);
 		panel.add(button);
+    panel.add(clear);
     panel.add(fahrenheit);
     panel.add(celsius);
     panel.add(kelvin);
@@ -106,7 +110,24 @@ public class SafeConverter
     return listener;
   }
 
+  private ActionListener clearListener()
+  {
+    ActionListener listener = new ActionListener()
+    {
+      public void actionPerformed(ActionEvent e)
+      {
+        first=0;
+        second=0;
+        text.setText("");
+        fahrenheit.setSelected(false);
+        celsius.setSelected(false);
+        kelvin.setSelected(false);
+        label.setText("Enter a temperature and select it's units along with the units to convert to. SELECT CURRENT UNITS FIRST, THEN DESIRED UNITS SECOND.");
 
+      }
+    };
+    return listener;
+  }
 
 	private ActionListener buttonListener()
 	{
